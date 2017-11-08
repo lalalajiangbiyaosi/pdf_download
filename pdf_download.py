@@ -53,44 +53,7 @@ def save_pdf(html):
 
     # url = 'https://www.safaribooksonline.com/home/'
 def main(url):
-    headers  ={
-        'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36',
-        'accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
-        'accept-encoding':'gzip, deflate, br',
-        'accept-language':'zh-CN,zh;q=0.8,ja;q=0.6',
-        'cache-control':'max-age=0',
-        'referer':'https://www.safaribooksonline.com/',
-    }
-    cookies = {
-        'optimizelyEndUserId':'oeu1509975871757r0.7508240468174463',
-        'optimizelySegments':'%7B%7D',
-        'optimizelyBuckets':'%7B%7D',
-        'BrowserCookie':'9ccbce7d-1c4c-4c44-bfb4-160732694657',
-        'corp_sessionid':'cgvo3kw9b7bhkx595czh1o8atl7gp898',
-        'liveagent_oref':'http://my.safaribooksonline.com/',
-        'liveagent_ptid':'2f1516dd-8b8e-4334-81ed-ab47aca7630e',
-        '_vwo_uuid_v2':'70FEB63E56A04774A6F3BD6D9A59F4B7|d810a4af0373e4dd4a14dead0e923407',
-        'dwf_anybird_skip_topics_experiment':'True',
-        'dwf_dashboard_v10':'True',
-        'recently-viewed':'%5B%229781787288225%3Ach05.html%22%2C%229781783983407%22%2C%229781787121386%22%2C%229780134547046%22%2C%229781788471176%22%5D',
-        'original_referer':'direct',
-        'dashboard_v10':'1',
-        '_uetsid':'_uetc38f1067',
-        'timezoneoffset':'-28800',
-        'liveagent_sid':'f7497b0d-1bc8-437c-8c4b-3760535ad361',
-        'liveagent_vc':'12',
-        '_gat':'1',
-        'salesforce_id':'a66cda34720db081f2fd5bbfa8aca4fe',
-        'csrfsafari':'Nt5l5xMYmnidXppSTKFLymizt0l3exLy',
-        '_ga':'GA1.2.1666217267.1509976252',
-        '_gid':'GA1.2.801030076.1509976252',
-        'logged_in':'y',
-        'sessionid':'tbu07z4899d20pbgv4yqt8xrryl8xcbc'
-    }
-    sess = requests.Session()
-    sess.cookies = requests.utils.cookiejar_from_dict(cookies)
-    # r = sess.get(url=url,headers=headers,)
-    # print(r.text)
+
     r = sess.get(url=url,headers=headers,)
     # print(r.text)
     soup = BeautifulSoup(r.text,'lxml')
@@ -129,6 +92,45 @@ def main(url):
 
 
 if __name__ == '__main__':
+
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36',
+        'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+        'accept-encoding': 'gzip, deflate, br',
+        'accept-language': 'zh-CN,zh;q=0.8,ja;q=0.6',
+        'cache-control': 'max-age=0',
+        'referer': 'https://www.safaribooksonline.com/',
+    }
+    cookies = {
+        'optimizelyEndUserId': 'oeu1509975871757r0.7508240468174463',
+        'optimizelySegments': '%7B%7D',
+        'optimizelyBuckets': '%7B%7D',
+        'BrowserCookie': '9ccbce7d-1c4c-4c44-bfb4-160732694657',
+        'corp_sessionid': 'cgvo3kw9b7bhkx595czh1o8atl7gp898',
+        'liveagent_oref': 'http://my.safaribooksonline.com/',
+        'liveagent_ptid': '2f1516dd-8b8e-4334-81ed-ab47aca7630e',
+        '_vwo_uuid_v2': '70FEB63E56A04774A6F3BD6D9A59F4B7|d810a4af0373e4dd4a14dead0e923407',
+        'dwf_anybird_skip_topics_experiment': 'True',
+        'dwf_dashboard_v10': 'True',
+        'recently-viewed': '%5B%229781787288225%3Ach05.html%22%2C%229781783983407%22%2C%229781787121386%22%2C%229780134547046%22%2C%229781788471176%22%5D',
+        'original_referer': 'direct',
+        'dashboard_v10': '1',
+        '_uetsid': '_uetc38f1067',
+        'timezoneoffset': '-28800',
+        'liveagent_sid': 'f7497b0d-1bc8-437c-8c4b-3760535ad361',
+        'liveagent_vc': '12',
+        '_gat': '1',
+        'salesforce_id': 'a66cda34720db081f2fd5bbfa8aca4fe',
+        'csrfsafari': 'Nt5l5xMYmnidXppSTKFLymizt0l3exLy',
+        '_ga': 'GA1.2.1666217267.1509976252',
+        '_gid': 'GA1.2.801030076.1509976252',
+        'logged_in': 'y',
+        'sessionid': 'tbu07z4899d20pbgv4yqt8xrryl8xcbc'
+    }
+    sess = requests.Session()
+    sess.cookies = requests.utils.cookiejar_from_dict(cookies)
+    # r = sess.get(url=url,headers=headers,)
+    # print(r.text)
     url_list = sys.argv[1:]
     for url in url_list:
         main(url)
