@@ -81,11 +81,11 @@ def main(url):
     print('等待全部进程结束')
 
 
-    p2 = Pool(cpu_count())
-    for html in [html for html in os.listdir('.') if os.path.splitext(html)[-1] == '.html']:
-        p2.apply_async(save_pdf,args=(html,))
-    p2.close()
-    p2.join()
+    # p2 = Pool(cpu_count())
+    for html in  [html for html in os.listdir('.') if os.path.splitext(html)[-1] == '.html']:
+        save_pdf(html)
+    # p2.close()
+    # p2.join()
     print(os.listdir('.'))
     file_list = [file for file in os.listdir('.') if os.path.splitext(file)[-1] == '.pdf']
     merge_pdf(file_list,title)
