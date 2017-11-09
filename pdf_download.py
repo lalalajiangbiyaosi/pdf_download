@@ -7,11 +7,16 @@ from bs4 import BeautifulSoup
 import pdfkit
 
 def merge_pdf(file_list,title):
-    merger = PdfFileMerger()
-    for file_ in file_list:
-        merger.append(PdfFileReader(open(file_, 'rb')),import_bookmarks=False)
-    output = open('{}.pdf'.format(title),'wb')
-    merger.write(output)
+    try:
+        merger = PdfFileMerger()
+        for file_ in file_list:
+            merger.append(PdfFileReader(open(file_, 'rb')),import_bookmarks=False)
+        output = open('{}.pdf'.format(title),'wb')
+        merger.write(output)
+    except Exception as e:
+        print(e)
+    finally:
+        return 0 
 def save_html_to_file(sess, url,index):
     print("进程%s正在运行" % os.getpid())
     print('当前目录为%s' % os.path.abspath('.'))
