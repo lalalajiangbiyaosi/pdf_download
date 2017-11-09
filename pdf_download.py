@@ -20,14 +20,25 @@ def merge_pdf(file_list,title):
 def save_html_to_file(sess, url,index):
     print("进程%s正在运行" % os.getpid())
     print('当前目录为%s' % os.path.abspath('.'))
-    r = sess.get(url,headers=headers)
+    try:
+        r = sess.get(url,headers=headers)
+    except:
+        while (r.status != 200):
+            try:
+                r = sess.get(url,headers=headers)
+            except:
+                pass
+            finally:
+                pass
     soup = BeautifulSoup(r.text,'lxml')
     if soup.find_all('img', alt=True):
-        soup.find_all('img', alt=True)[0]['src'] = ''.join(['https://www.safaribooksonline.com', soup.find_all('img', alt=True)[0]['src']])
+        for div_img in soup.find_all('img', alt=True):
+            div_img['src'] = ''.join(['https://www.safaribooksonline.com', div_img['src']])
+        # soup.find_all('img', alt=True)[0]['src'] = ''.join(['https://www.safaribooksonline.com', soup.find_all('img', alt=True)[0]['src']])
     for i in soup.find_all('link', type='text/css')[-2:]:
         i['href'] = ''.join(['https://www.safaribooksonline.com', i['href']])
-    for div_img in soup.select("div.image img"):
-        div_img['src'] = ''.join(['https://www.safaribooksonline.com', div_img['src']])
+    # for div_img in soup.select("div.image img"):
+    #     div_img['src'] = ''.join(['https://www.safaribooksonline.com', div_img['src']])
     html = str(soup)
     print(index+1,'抓取成功，正在保存')
     with open('{}.html'.format(index),'w',encoding='utf-8') as f:
@@ -51,7 +62,6 @@ def save_pdf(html):
         'dpi':'300',
         'page-size': 'Letter',
         'encoding': "UTF-8",
-        "image-dpi": '900',
         'custom-header': [
             ('Accept-Encoding', 'gzip')
         ]
