@@ -26,6 +26,8 @@ def save_html_to_file(sess, url,index):
         soup.find_all('img', alt=True)[0]['src'] = ''.join(['https://www.safaribooksonline.com', soup.find_all('img', alt=True)[0]['src']])
     for i in soup.find_all('link', type='text/css')[-2:]:
         i['href'] = ''.join(['https://www.safaribooksonline.com', i['href']])
+    for div_img in soup.select("div.image img"):
+        div_img['src'] = ''.join(['https://www.safaribooksonline.com', div_img['src']])
     html = str(soup)
     print(index+1,'抓取成功，正在保存')
     with open('{}.html'.format(index),'w',encoding='utf-8') as f:
@@ -49,6 +51,7 @@ def save_pdf(html):
         'dpi':'300',
         'page-size': 'Letter',
         'encoding': "UTF-8",
+        "image-dpi": '900',
         'custom-header': [
             ('Accept-Encoding', 'gzip')
         ]
