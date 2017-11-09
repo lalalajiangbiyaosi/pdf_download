@@ -37,6 +37,7 @@ def save_pdf(html):
     """
     把所有html文件转换成pdf文件
     """
+
     file_name = ''.join([os.path.splitext(html)[0],'.pdf'])
     print('进程%s正在运行'%os.getpid())
     print('正在处理',file_name)
@@ -52,8 +53,16 @@ def save_pdf(html):
             ('Accept-Encoding', 'gzip')
         ]
     }
-    pdfkit.from_file(html, file_name, options=options)
-    print(file_name,'创建成功,进程退出')
+    try:
+        pdfkit.from_file(html, file_name, options=options)
+    except Exception as e:
+        print(e)
+    finally:
+        print(file_name,'创建成功,进程退出')
+        return 0
+        
+
+    
 
 
     # url = 'https://www.safaribooksonline.com/home/'
